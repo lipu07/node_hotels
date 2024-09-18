@@ -79,6 +79,13 @@ app.use(bodyParser.json());
 const Person= require('./models/person')
 const menuItem= require('./models/menuItem')
 
+// MiddleWare function
+// const logRequest= (req, res, next)=>{
+//   console.log(`${(new Date().toLocaleDateString)} Request Made to: ${req.originalUrl}`);
+//   next();
+// }
+
+
 app.get('/', function (req, res) {
   res.send('Welcome to my Hotel')
 })
