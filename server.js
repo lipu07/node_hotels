@@ -71,29 +71,46 @@ const express = require('express')
 const app = express()
 const db= require("./db")
 require('dotenv').config();
+const passport= require('./auth');
+
 const PORT = process.env.PORT || 3000;
 
 const bodyParser= require('body-parser')
 app.use(bodyParser.json());
 
-const Person= require('./models/person')
 const menuItem= require('./models/menuItem')
 
-// MiddleWare function
-// const logRequest= (req, res, next)=>{
-//   console.log(`${(new Date().toLocaleDateString)} Request Made to: ${req.originalUrl}`);
-//   next();
-// }
 
+// passport.use(new localStrategy(async (username, password, done)=>{
+//   //Authentication logic
+//   try{
+//     console.log("Received Credential", username, password);
+//     const user = Person.findOne({username: username})
+  
+//     if(!user){
+//       return done(null, false, {message: "Incorrect username"});
+//     }
+
+//     const isPasswordMatch= user.password === password ? true: false;
+//     if(!isPasswordMatch){
+//       return done(null, false, {message: "Incoreect password"});
+//     }
+//   }catch(err){
+//     return done(err);
+//   }
+// }))
+
+app.use(passport.initialize())
+
+const localAuthMiddleware=  passport.authenticate('local', {session: false});
 
 app.get('/', function (req, res) {
   res.send('Welcome to my Hotel')
 })
 
-
-
 const personRoutes = require('./routes/personRoutes');
 const menuItemRoutes = require('./routes/menuItemRoutes');
+const person = require('./models/person');
 
 app.use('/person', personRoutes);
 app.use('/menu', menuItemRoutes);
