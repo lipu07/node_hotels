@@ -6,7 +6,6 @@ router.post('/', async (req, res)=>{
 
     try{
       const data= req.body
-    
       const newPerson= new Person(data)
       const savedPerson= await newPerson.save()
       console.log("Data saved", savedPerson);
