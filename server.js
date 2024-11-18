@@ -115,6 +115,8 @@ const person = require('./models/person');
 app.use('/person', personRoutes);
 app.use('/menu', menuItemRoutes);
 
+// URL= https://node-hotels-2-81gd.onrender.com
+
 
 app.listen(PORT, ()=>{
     console.log("server is live on port 3000")
